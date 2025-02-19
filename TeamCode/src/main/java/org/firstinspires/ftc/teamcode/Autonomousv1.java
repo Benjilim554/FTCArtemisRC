@@ -26,6 +26,11 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Config
 @Autonomous(name = "Autonomousv1", group = "Autonomous")
+
+class Claw {
+
+}
+
 public class Autonomousv1 extends LinearOpMode {
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
