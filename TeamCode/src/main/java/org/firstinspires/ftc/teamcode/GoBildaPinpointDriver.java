@@ -46,7 +46,7 @@ import java.util.Arrays;
         name = "goBILDA® Pinpoint Odometry Computer",
         xmlTag = "goBILDAPinpoint",
         description ="goBILDA® Pinpoint Odometry Computer (IMU Sensor Fusion for 2 Wheel Odometry)"
-        )
+)
 
 public class GoBildaPinpointDriver extends I2cDeviceSynchDevice<I2cDeviceSynchSimple> {
 
@@ -61,9 +61,8 @@ public class GoBildaPinpointDriver extends I2cDeviceSynchDevice<I2cDeviceSynchSi
     private float yVelocity    = 0;
     private float hVelocity    = 0;
 
-    // changed 65 & 66 from private to public
-    public static final float goBILDA_SWINGARM_POD = 13.26291192f; //ticks-per-mm for the goBILDA Swingarm Pod
-    public static final float goBILDA_4_BAR_POD    = 19.89436789f; //ticks-per-mm for the goBILDA 4-Bar Pod
+    private static final float goBILDA_SWINGARM_POD = 13.26291192f; //ticks-per-mm for the goBILDA Swingarm Pod
+    private static final float goBILDA_4_BAR_POD    = 19.89436789f; //ticks-per-mm for the goBILDA 4-Bar Pod
 
     //i2c address of the device
     public static final byte DEFAULT_ADDRESS = 0x31;
@@ -156,7 +155,7 @@ public class GoBildaPinpointDriver extends I2cDeviceSynchDevice<I2cDeviceSynchSi
 
 
     /** Writes an int to the i2c device
-    @param reg the register to write the int to
+     @param reg the register to write the int to
      @param i the integer to write to the register
      */
     private void writeInt(final Register reg, int i){
@@ -313,7 +312,6 @@ public class GoBildaPinpointDriver extends I2cDeviceSynchDevice<I2cDeviceSynchSi
      * @param xEncoder FORWARD or REVERSED, X (forward) pod should increase when the robot is moving forward
      * @param yEncoder FORWARD or REVERSED, Y (strafe) pod should increase when the robot is moving left
      */
-
     public void setEncoderDirections(EncoderDirection xEncoder, EncoderDirection yEncoder){
         if (xEncoder == EncoderDirection.FORWARD){
             writeInt(Register.DEVICE_CONTROL,1<<5);
@@ -323,15 +321,16 @@ public class GoBildaPinpointDriver extends I2cDeviceSynchDevice<I2cDeviceSynchSi
         }
 
         if (yEncoder == EncoderDirection.FORWARD){
-            writeInt(Register.DEVICE_CONTROL,1<<3); // 3
+            writeInt(Register.DEVICE_CONTROL,1<<3);
         }
         if (yEncoder == EncoderDirection.REVERSED){
-            writeInt(Register.DEVICE_CONTROL,1<<2); // 2
+            writeInt(Register.DEVICE_CONTROL,1<<2);
         }
     }
+
     /**
      * If you're using goBILDA odometry pods, the ticks-per-mm values are stored here for easy access.<br><br>
-      @param pods goBILDA_SWINGARM_POD or goBILDA_4_BAR_POD
+     * @param pods goBILDA_SWINGARM_POD or goBILDA_4_BAR_POD
      */
     public void setEncoderResolution(GoBildaOdometryPods pods){
         if (pods == GoBildaOdometryPods.goBILDA_SWINGARM_POD) {
@@ -518,8 +517,3 @@ public class GoBildaPinpointDriver extends I2cDeviceSynchDevice<I2cDeviceSynchSi
 
 
 }
-
-
-
-
-
