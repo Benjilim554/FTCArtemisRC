@@ -13,13 +13,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Config
 @TeleOp
 public abstract class PIDF_Arm extends LinearOpMode {
-    public static double f = 0;
 
     private final double ticks_in_degree = 700 / 180.0;
 
     private DcMotorEx armMotor;
 
-    public void armToposition(DcMotor armMotor, int target, double kp, double ki, double kd, OpMode opmode) {
+    public void armToposition(DcMotor armMotor, int target, double kp, double ki, double kd, double f, OpMode opmode) {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         armMotor = hardwareMap.get(DcMotorEx.class, "armMotor");
@@ -52,7 +51,7 @@ public abstract class PIDF_Arm extends LinearOpMode {
             // Derivative Error
             d = kd *  (error - previousError) / (currentTime - previousTime); // directly proportional to the rate of change of error)
 
-            power = p + i + d; // remove i if you're not using integral error
+            power = p + i + d; // remove i if you're not using integral error or just set it to 0
             armMotor.setPower(power + ff);
 
             // Save Values
